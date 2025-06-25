@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluations', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('enrollment_id')->constrained();
-            $table->decimal('score', 5, 2);
-            $table->text('feedback')->nullable();
-            $table->timestamp('evaluated_at')->useCurrent();
+            $table->string('name')->unique();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluations');
+        Schema::dropIfExists('roles');
     }
 };
