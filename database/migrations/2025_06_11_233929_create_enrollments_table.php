@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained();
             $table->timestamp('enrolled_at')->useCurrent();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
