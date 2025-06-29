@@ -28,7 +28,18 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $evaluation = Evaluation::create([
+            'enrollment_id' => $request->enrollment_id,
+            'score' => $request->score,
+            'feedback' => $request->feedback
+        ]);
+
+        return response()->json([
+            'id' => $evaluation->id,
+            'enrollment_id' => $evaluation->enrollment_id,
+            'score' => $evaluation->score,
+            'feedback' => $evaluation->feedback
+        ]);
     }
 
     /**

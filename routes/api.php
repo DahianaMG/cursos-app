@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\EvaluationController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,3 +22,8 @@ Route::post('set-course', [CourseController::class, 'store']);
 Route::get('get-course/{id}', [CourseController::class, 'show']);
 Route::put('update-course/{id}', [CourseController::class, 'update']);
 Route::delete('delete-course/{id}', [CourseController::class, 'destroy']);
+Route::get('category/{id}/courses', [CourseController::class, 'coursesByCategory']);
+
+Route::post('set-enrollment', [EnrollmentController::class, 'store']);
+
+Route::post('set-evaluation', [EvaluationController::class, 'store']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -14,6 +15,27 @@ class CourseController extends Controller
     {
         $courses = Course::select('id', 'title', 'description')->get();
         return response()->json($courses);
+    }
+
+    public function coursesByCategory($id)
+    {
+        $category = Category::with('courses')->find($id);
+        if (!$category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
+
+        $courses = $category->courses->map(function ($course) {
+            return [
+                'title' => $course->title,
+                'description' => $course->description,
+            ];
+        });
+
+        return response()->json([
+            'id' => $category->id,
+            'name' => $category->name,
+            'courses' => $courses,
+        ]);
     }
 
     /**

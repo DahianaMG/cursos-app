@@ -28,7 +28,16 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $enrollment = Enrollment::create([
+            'user_id' => $request->user_id,
+            'course_id' => $request->course_id
+        ]);
+
+        return response()->json([
+            'message' => 'Successful enrollment',
+            'user_id' => $enrollment->user_id,
+            'course_id' => $enrollment->course_id,
+        ]);
     }
 
     /**
