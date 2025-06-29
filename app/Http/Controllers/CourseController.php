@@ -12,7 +12,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::select('id', 'title', 'description')->get();
+        return response()->json($courses);
     }
 
     /**
@@ -28,21 +29,29 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $course = Course::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'created_by' => $request->created_by
+        ]);
+
+        return response()->json($course);
     }
 
-    /**
+     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(int $id)
     {
-        //
+        $course = Course::select('id', 'title', 'description', 'category_id', 'created_by')->find($id);
+        return response()->json($course);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(Ticket $ticket)
     {
         //
     }
@@ -50,16 +59,22 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, int $id)
     {
-        //
+        $course = Course::find($id);
+        $course->title = $request->title;
+        $course->description = $request->description;
+        $course->category_id = $request->category_id;
+        $course->created_by = $request->created_by;
+        $course->save();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(int $id)
     {
-        //
+        $course = Course::find($id);
+        $course->delete();
     }
 }
