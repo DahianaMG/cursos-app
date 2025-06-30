@@ -53,7 +53,7 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
-        $evaluation = Evaluation::create([
+        $evaluation = Evaluation::firstOrCreate([
             'enrollment_id' => $request->enrollment_id,
             'score' => $request->score,
             'feedback' => $request->feedback

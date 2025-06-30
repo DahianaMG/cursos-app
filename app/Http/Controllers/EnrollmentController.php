@@ -28,7 +28,7 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        $enrollment = Enrollment::create([
+        $enrollment = Enrollment::firstOrCreate([
             'user_id' => $request->user_id,
             'course_id' => $request->course_id
         ]);

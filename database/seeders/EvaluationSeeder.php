@@ -13,19 +13,19 @@ class EvaluationSeeder extends Seeder
      */
     public function run(): void
     {
-        Evaluation::create([
+        Evaluation::firstOrCreate([
             'enrollment_id' => '1',
             'score' => '80',
             'feedback' => 'Muy bueno'
         ]);
 
-        Evaluation::create([
+        Evaluation::firstOrCreate([
             'enrollment_id' => '2',
             'score' => '60',
             'feedback' => 'Aprobado'
         ]);
 
-        Evaluation::create([
+        Evaluation::firstOrCreate([
             'enrollment_id' => '3',
             'score' => '40',
             'feedback' => 'Insuficiente'

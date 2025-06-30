@@ -13,17 +13,17 @@ class EnrollmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Enrollment::create([
+        Enrollment::firstOrCreate([
             'user_id' => '2',
             'course_id' => '1'
         ]);
 
-        Enrollment::create([
+        Enrollment::firstOrCreate([
             'user_id' => '2',
             'course_id' => '2'
         ]);
 
-        Enrollment::create([
+        Enrollment::firstOrCreate([
             'user_id' => '2',
             'course_id' => '3'
         ]);
