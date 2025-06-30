@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,30 @@ class EvaluationController extends Controller
     public function index()
     {
         //
+    }
+
+    public function evaluationsByUser($id)
+    {
+        $user = User::with('evaluations.enrollment.course')->find($id);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $evaluations = $user->evaluations->map(function ($evaluation) {
+            return [
+                'course' => $evaluation->enrollment->course->title,
+                'score' => $evaluation->score,
+                'feedback' => $evaluation->feedback,
+                'evaluated_at' => $evaluation->evaluated_at
+            ];
+        });
+
+        return response()->json([
+            'user_id' => $user->id,
+            'user_name' => $user->name,
+            'evaluations' => $evaluations
+        ]);
     }
 
     /**

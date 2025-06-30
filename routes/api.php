@@ -27,3 +27,4 @@ Route::get('category/{id}/courses', [CourseController::class, 'coursesByCategory
 Route::post('set-enrollment', [EnrollmentController::class, 'store']);
 
 Route::post('set-evaluation', [EvaluationController::class, 'store']);
+Route::get('user/{id}/evaluations', [EvaluationController::class, 'evaluationsByUser']);
