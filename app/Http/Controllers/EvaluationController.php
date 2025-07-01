@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreEvaluationRequest;
 
 class EvaluationController extends Controller
 {
@@ -58,7 +59,7 @@ class EvaluationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEvaluationRequest $request)
     {
         $evaluation = Evaluation::firstOrCreate([
             'enrollment_id' => $request->enrollment_id,

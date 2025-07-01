@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use Validator;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Validator;
+use App\Http\Requests\RegisterUserRequest;
 
 class AuthController extends Controller
 {
     //Register
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role_id' => $request->role_id,
         ]);
 
         $token = $user->createToken('MyAppToken')->plainTextToken;
@@ -32,7 +34,7 @@ class AuthController extends Controller
     }
 
     //Login
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['error' => 'Unauthorized'], 401);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreEnrollmentRequest;
 
 class EnrollmentController extends Controller
 {
@@ -26,7 +27,7 @@ class EnrollmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEnrollmentRequest $request)
     {
         $userId = auth()->id();
 
@@ -38,7 +39,7 @@ class EnrollmentController extends Controller
         return response()->json(['message' => 'Enrolled successfully']);
     }
 
-    public function storeAdmin(Request $request)
+    public function storeAdmin(StoreEnrollmentRequest $request)
     {
         $enrollment = Enrollment::firstOrCreate([
             'user_id' => $request->user_id,

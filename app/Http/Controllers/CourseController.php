@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CourseRequest;
 
 class CourseController extends Controller
 {
@@ -49,9 +50,9 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        $course = Course::create([
+        $course = Course::firstOrCreate([
             'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
@@ -81,7 +82,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(CourseRequest $request, int $id)
     {
         $course = Course::find($id);
         $course->title = $request->title;
