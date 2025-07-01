@@ -16,6 +16,7 @@ class EvaluationController extends Controller
         //
     }
 
+    //Evaluaciones de cualquier usuario por id
     public function evaluationsByUser($id)
     {
         $user = User::with('evaluations.enrollment.course')->find($id);
@@ -38,6 +39,12 @@ class EvaluationController extends Controller
             'user_name' => $user->name,
             'evaluations' => $evaluations
         ]);
+    }
+
+    //Evaluaciones del usuario logueado
+    public function myEvaluations()
+    {
+        return $this->evaluationsByUser(auth()->id());
     }
 
     /**

@@ -28,13 +28,25 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
+        $userId = auth()->id();
+
+        $enrollment = Enrollment::firstOrCreate([
+            'user_id' => $userId,
+            'course_id' => $request->course_id
+        ]);
+
+        return response()->json(['message' => 'Enrolled successfully']);
+    }
+
+    public function storeAdmin(Request $request)
+    {
         $enrollment = Enrollment::firstOrCreate([
             'user_id' => $request->user_id,
             'course_id' => $request->course_id
         ]);
 
         return response()->json([
-            'message' => 'Successful enrollment',
+            'message' => 'Enrollment registered by admin',
             'user_id' => $enrollment->user_id,
             'course_id' => $enrollment->course_id,
         ]);

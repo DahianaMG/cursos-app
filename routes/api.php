@@ -15,9 +15,6 @@ Route::get('category/{id}/courses', [CourseController::class, 'coursesByCategory
 //Rutas usuarios autenticados
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-
-    //Evaluaciones
-    Route::get('user/{id}/evaluations', [EvaluationController::class, 'evaluationsByUser']);
 });
 
 //Rutas administrador
@@ -38,14 +35,21 @@ Route::middleware('auth:sanctum', 'role:admin')->group(function () {
     Route::put('update-course/{id}', [CourseController::class, 'update']);
     Route::delete('delete-course/{id}', [CourseController::class, 'destroy']);
 
+    //Inscripciones
+    Route::post('admin/set-enrollment', [EnrollmentController::class, 'adminStore']);
+
     //Evaluaciones
     Route::post('set-evaluation', [EvaluationController::class, 'store']);
+    Route::get('user/{id}/evaluations', [EvaluationController::class, 'evaluationsByUser']);
 });
 
 //Rutas estudiantes
 Route::middleware('auth:sanctum', 'role:student')->group(function () {
     //Inscripciones
     Route::post('set-enrollment', [EnrollmentController::class, 'store']);
+
+    //Evaluaciones
+    Route::get('my-evaluations', [EvaluationController::class, 'myEvaluations']);
 });
 
 
